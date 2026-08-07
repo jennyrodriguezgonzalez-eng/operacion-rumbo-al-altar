@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operación Rumbo al Altar</title>
+
+<script>
+// ========= EDITA SOLO ESTA ZONA =========
+const marcador = {
+  verde: 0,
+  azul: 0
+};
+
+const operaciones = [
+  false, // 1 Planet
+  false, // 2 Inspección Técnica
+  false, // 3 Vuelo Inaugural
+  false, // 4 Ventana de Lanzamiento
+  false, // 5 Operación Tsunami
+  false, // 6 Operación Especial: Desactivación
+  false  // 7 Operación Cine Clandestino
+];
+// ========================================
+</script>
+
+<style>
+body{
+margin:0;
+background:#050505;
+color:#49ff49;
+font-family:Consolas,monospace;
+display:flex;
+justify-content:center;
+padding:20px;
+}
+.panel{
+max-width:700px;
+width:100%;
+border:2px solid #49ff49;
+padding:20px;
+box-shadow:0 0 20px #0f04;
+}
+.logo{
+text-align:center;
+margin-bottom:15px;
+}
+.logo img{
+max-width:180px;
+filter:drop-shadow(0 0 8px #49ff49);
+}
+h1,h2{text-align:center;margin:.4rem}
+.estado{font-size:1.2rem;text-align:center;margin:15px 0;}
+table{width:100%;border-collapse:collapse;margin:20px 0;}
+td,th{border:1px solid #49ff49;padding:8px}
+.score{display:flex;justify-content:space-around;margin-top:25px}
+.score div{text-align:center}
+.puntos{font-size:2rem;font-weight:bold}
+.progress{
+width:100%;height:22px;border:1px solid #49ff49;margin-top:20px;
+}
+.bar{
+height:100%;
+background:#49ff49;
+width:0%;
+transition:.3s;
+}
+.small{text-align:center;margin-top:10px;color:#8f8;font-size:.9rem}
+</style>
+</head>
+<body>
+
+<div class="panel">
+
+<div class="logo">
+<!-- Sustituye logo.png por tu imagen -->
+<img src="logo.png" alt="Logo La Organización" onerror="this.style.display='none'">
+</div>
+
+<h1>LA ORGANIZACIÓN</h1>
+<h2>OPERACIÓN RUMBO AL ALTAR</h2>
+
+<div class="estado">🟢 MISIÓN EN CURSO</div>
+
+<table id="tabla">
+<tr><th>Operación</th><th>Estado</th></tr>
+</table>
+
+<div class="score">
+<div>
+🟢<br>Equipo Verde
+<div class="puntos" id="verde"></div>
+</div>
+
+<div>
+🔵<br>Equipo Azul
+<div class="puntos" id="azul"></div>
+</div>
+</div>
+
+<h2>PROGRESO DE LA MISIÓN</h2>
+
+<div class="progress">
+<div class="bar" id="bar"></div>
+</div>
+
+<div class="small" id="porcentaje"></div>
+
+<div class="small">
+Última actualización:
+<span id="hora"></span>
+</div>
+
+</div>
+
+<script>
+
+const nombres=[
+"Planet",
+"Inspección Técnica",
+"Vuelo Inaugural",
+"Ventana de Lanzamiento",
+"Operación Tsunami",
+"Operación Especial: Desactivación",
+"Operación Cine Clandestino"
+];
+
+const tabla=document.getElementById("tabla");
+
+operaciones.forEach((v,i)=>{
+let tr=document.createElement("tr");
+tr.innerHTML="<td>"+(i+1)+". "+nombres[i]+"</td><td>"+(v?"✔ COMPLETADA":"⏳ Pendiente")+"</td>";
+tabla.appendChild(tr);
+});
+
+document.getElementById("verde").textContent=marcador.verde+" pts";
+document.getElementById("azul").textContent=marcador.azul+" pts";
+
+const hechas=operaciones.filter(x=>x).length;
+const p=Math.round((hechas/operaciones.length)*100);
+
+document.getElementById("bar").style.width=p+"%";
+document.getElementById("porcentaje").textContent=p+" % completado";
+
+document.getElementById("hora").textContent=new Date().toLocaleTimeString("es-ES");
+</script>
+
+</body>
+</html>
